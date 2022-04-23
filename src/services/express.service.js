@@ -9,10 +9,12 @@ const jwt = require("jsonwebtoken");
 const ParkingSchema = require("../apollo/schemas/parking.schema");
 const FloorSchema = require("../apollo/schemas/floor.schema");
 const SpotSchema = require("../apollo/schemas/spot.schema");
+const CitySchema = require("../apollo/schemas/city.schema");
 
 const parkingResolvers = require("../apollo/resolvers/parking.resolver");
 const floorResolvers = require("../apollo/resolvers/floor.resolver");
 const spotResolvers = require("../apollo/resolvers/spot.resolver");
+const cityResolvers = require("../apollo/resolvers/city.resolver");
 
 
 const app = express();
@@ -21,12 +23,14 @@ const graphQlServer = new ApolloServer({
   typeDefs: [
     ParkingSchema,
     FloorSchema,
-    SpotSchema
+    SpotSchema,
+    CitySchema
   ],
   resolvers: [
     parkingResolvers,
     floorResolvers,
-    spotResolvers
+    spotResolvers,
+    cityResolvers
   ],
 });
 

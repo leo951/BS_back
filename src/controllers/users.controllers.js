@@ -14,6 +14,7 @@ exports.create = (req, res) => {
     email: req.body.email,
     password: hasedPassword,
     isAdmin: req.body.isAdmin || false,
+    spot: req.body.spot || "",
   });
   user
     .save()
@@ -76,6 +77,7 @@ exports.login = (req, res) => {
 
 exports.findOne = (req, res) => {
   User.findById(req.user.id)
+  .populate("spot")
     .then((user) => {
       if (!user) {
         res.status(404).send({
@@ -89,6 +91,7 @@ exports.findOne = (req, res) => {
 
 exports.getUserAll = (req, res) => {
   User.find()
+    .populate("spot")
     .then((Users) => {
       res.status(200).json(Users);
     })
@@ -121,8 +124,8 @@ exports.updateUser = (req, res) => {
           res.send({ user: data });
         })
         .catch((err) => res.status(500).json({ err: err }));
-    }else{
-      res.send({"err": "Not authorised"})
+    } else {
+      res.send({ err: "Not authorised" });
     }
   }
 };

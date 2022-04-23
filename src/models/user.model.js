@@ -27,5 +27,6 @@ const userSchema = new Schema({
   isAdmin: {
     type: Boolean,
   },
+  spot: { type: Schema.Types.ObjectId, ref: "Spot" },
 });
 module.exports = mongoose.model("User", userSchema);
