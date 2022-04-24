@@ -26,19 +26,19 @@ module.exports = {
       return city.save();
     },
 
-    updateCity(parent, { id, name, img, parkings }) {
+    async updateCity(parent, { id, name, img, parkings }) {
       try {
-        return City.findByIdAndUpdate(id, {
+        return await City.findByIdAndUpdate(id, {
           name: name,
           img: img,
           parkings: parkings,
-        }).clone();
+        }, {new: true}).clone();
       } catch (error) {
         return error;
       }
     },
-    deleteCity(parents, { id }) {
-      return City.findByIdAndRemove(id);
+    async deleteCity(parents, { id }) {
+      return await City.findByIdAndRemove(id);
     },
   },
 };

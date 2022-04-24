@@ -23,18 +23,34 @@ module.exports = {
       return spot.save();
     },
 
-    updateSpot(parent, { id, number, available }) {
+    async createSpots(parent, args) {
+      for (let i = 0; i < parseInt(args.number); i++) {
+        try {
+          const spot = new Spot({
+            number: JSON.stringify(i),
+            available: args.available,
+          });
+          console.log("Je suis spot = ",spot);
+          await spot.save();
+        } catch (error) {
+          break
+        }
+
+      }
+    },
+
+    async updateSpot(parent, { id, number, available }) {
       try {
-        return Spot.findByIdAndUpdate(id, {
+        return await Spot.findByIdAndUpdate(id, {
           number: number,
           available: available,
-        }).clone();
+        }, {new: true}).clone();
       } catch (error) {
         return error;
       }
     },
-    deleteSpot(parents, { id }) {
-      return Spot.findByIdAndRemove(id);
+    async deleteSpot(parents, { id }) {
+      return await Spot.findByIdAndRemove(id);
     },
   },
 };

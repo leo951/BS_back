@@ -13,8 +13,8 @@ module.exports = gql`
   }
 
   extend type Mutation {
-    createParking(id: ID, name: String, seasons: [ID]): Parking
-    updateParking(id: ID, name: String, seasons: [ID]): Parking
+    createParking(id: ID, name: String, floors: [ID]): Parking
+    updateParking(id: ID, name: String, floors: [ID]): Parking
     deleteParking(id: ID!): Parking
   }
 `;

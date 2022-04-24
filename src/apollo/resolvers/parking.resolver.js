@@ -25,18 +25,18 @@ module.exports = {
       return parking.save();
     },
 
-    updateParking(parent, { id, name, floors }) {
+    async updateParking(parent, { id, name, floors }) {
       try {
-        return Parking.findByIdAndUpdate(id, {
+        return await Parking.findByIdAndUpdate(id, {
           name: name,
           floors: floors,
-        }).clone();
+        }, {new: true}).clone();
       } catch (error) {
         return error;
       }
     },
-    deleteParking(parents, { id }) {
-      return Parking.findByIdAndRemove(id);
+    async deleteParking(parents, { id }) {
+      return await Parking.findByIdAndRemove(id);
     },
   },
 };

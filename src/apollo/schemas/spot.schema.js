@@ -14,6 +14,7 @@ module.exports = gql`
 
   extend type Mutation {
     createSpot(id: ID, number: String, available: Boolean): Spot
+    createSpots(id: ID, number: String, available: Boolean): [Spot]
     updateSpot(id: ID, number: String, available: Boolean): Spot
     deleteSpot(id: ID!): Spot
   }

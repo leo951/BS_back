@@ -25,18 +25,18 @@ module.exports = {
       return floor.save();
     },
 
-    updateFloor(parent, { id, letter, spots }) {
+    async updateFloor(parent, { id, letter, spots }) {
       try {
-        return Floor.findByIdAndUpdate(id, {
+        return await Floor.findByIdAndUpdate(id, {
           letter: letter,
           spots: spots,
-        }).clone();
+        }, {new: true}).clone();
       } catch (error) {
         return error;
       }
     },
-    deleteFloor(parents, { id }) {
-      return Floor.findByIdAndRemove(id);
+    async deleteFloor(parents, { id }) {
+      return await Floor.findByIdAndRemove(id);
     },
   },
 };
