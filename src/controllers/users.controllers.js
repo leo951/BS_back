@@ -5,7 +5,6 @@ const configs = require("../configs/jwt.configs");
 
 exports.create = (req, res) => {
   let hasedPassword = bcrypt.hashSync(req.body.password, 10);
-  console.log("Je rentre dans le create");
 
   const user = new User({
     firstname: req.body.firstname,
@@ -14,7 +13,7 @@ exports.create = (req, res) => {
     email: req.body.email,
     password: hasedPassword,
     isAdmin: req.body.isAdmin || false,
-    spot: req.body.spot || "",
+    spot: req.body.spot || null,
   });
   user
     .save()
@@ -75,9 +74,9 @@ exports.login = (req, res) => {
     });
 };
 
-exports.findOne = (req, res) => {
+exports.getUser = (req, res) => {
   User.findById(req.user.id)
-  .populate("spot")
+    .populate("spot")
     .then((user) => {
       if (!user) {
         res.status(404).send({
@@ -103,31 +102,13 @@ exports.getUserAll = (req, res) => {
 };
 
 exports.updateUser = (req, res) => {
-  console.log("Je suis req.user.id = ", req.user.id);
-  console.log("Je suis req.query.id = ", req.query.id);
-
-  if (req.user.isAdmin == true) {
-    User.findByIdAndUpdate(req.query.id, req.body, {
-      new: true,
+  User.findByIdAndUpdate(req.user.id, req.body, {
+    new: true,
+  })
+    .then((data) => {
+      res.send({ user: data });
     })
-      .then((data) => {
-        res.send({ user: data });
-      })
-      .catch((err) => res.status(500).json({ err: err }));
-  } else {
-    if (req.query.id == req.user.id) {
-      console.log("Je rentre dans le else");
-      User.findByIdAndUpdate(req.query.id, req.body, {
-        new: true,
-      })
-        .then((data) => {
-          res.send({ user: data });
-        })
-        .catch((err) => res.status(500).json({ err: err }));
-    } else {
-      res.send({ err: "Not authorised" });
-    }
-  }
+    .catch((err) => res.status(500).json({ err: err }));
 };
 
 exports.deleteUser = (req, res, next) => {

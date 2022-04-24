@@ -11,8 +11,8 @@ router.post('/users/login', user.login);
 
 router.get('/usersAll', user.getUserAll);
 
-router.get('/users/:id', verifyToken, user.findOne);
-router.get('/users/admin/:id', verifyAdminToken, user.findOne)
+router.get('/users', verifyToken, user.getUser);
+router.get('/users/admin/:id', verifyAdminToken, user.getUser)
 
 router.put('/users/update', verifyToken, user.updateUser);
 
