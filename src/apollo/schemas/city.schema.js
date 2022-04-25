@@ -9,7 +9,7 @@ module.exports = gql`
   }
 
   extend type Query {
-    getCitys: [City]!
+    getCities: [City]!
     getCity(id: ID): City!
   }
 

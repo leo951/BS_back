@@ -2,7 +2,7 @@ const City = require("../../models/city.model");
 
 module.exports = {
   Query: {
-    getCitys: () => {
+    getCities: () => {
       return City.find()
         .populate("parkings")
         .clone()
