@@ -40,6 +40,7 @@ module.exports = {
     },
 
     async updateSpot(parent, { id, number, available }) {
+      console.log(`Je suis id = ${id} --- Je suis number = ${number} --- Je suis available = ${available}`);
       try {
         return await Spot.findByIdAndUpdate(id, {
           number: number,

@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     email: req.body.email,
     password: hasedPassword,
     isAdmin: req.body.isAdmin || false,
-    spot: req.body.spot || null,
+    spot: req.body.spot,
   });
   user
     .save()
@@ -102,9 +102,14 @@ exports.getUserAll = (req, res) => {
 };
 
 exports.updateUser = (req, res) => {
-  User.findByIdAndUpdate(req.user.id, req.body, {
-    new: true,
-  })
+  User.findByIdAndUpdate(
+    req.user.id,
+    req.body,
+    {
+      new: true,
+    },
+    // { omitUndefined: true }
+  )
     .then((data) => {
       res.send({ user: data });
     })
